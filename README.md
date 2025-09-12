@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -20,3 +21,7 @@ Thise is  food dilvary  app  so  make by Shakti  Restrorant its now only  projec
 # FOOD_APP-BACKEND01
 Thise  is bakend of food-app  make  by  Shakti  restrorant  its  only  for use  project  not  a  real  project 
 >>>>>>> 48c0a0dd71195c38b8da6acac87c82484f83f2ec
+=======
+# FrontenOfSHR
+Thise is  food dilvary  app  so  make by Shakti  Restrorant its now only  project  not real  
+>>>>>>> 61a69b91eb34054a23ff3b60e4b004b3645e3c18
