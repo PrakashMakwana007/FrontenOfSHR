@@ -1,27 +1,91 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-# React + Vite
+Shakti Hotel - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of the Shakti Hotel Food Delivery app.
+It is built with React, Redux Toolkit, Tailwind CSS, and Framer Motion for animations.
+The frontend connects with the backend (Node.js + Appwrite/MongoDB) to provide a complete food ordering experience.
 
-Currently, two official plugins are available:
+🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📖 Menu Listing – Users can browse all food items
 
-## Expanding the ESLint configuration
+🛒 Cart System – Add, update, or remove items from cart
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# FOOD_APP
-Thise is  food dilvary  app  so  make by Shakti  Restrorant its now only  project  not real  
->>>>>>> d0e58e1690c66987eba35470e326ce41b3ee3bd8
-=======
-# FOOD_APP-BACKEND01
-Thise  is bakend of food-app  make  by  Shakti  restrorant  its  only  for use  project  not  a  real  project 
->>>>>>> 48c0a0dd71195c38b8da6acac87c82484f83f2ec
-=======
-# FrontenOfSHR
-Thise is  food dilvary  app  so  make by Shakti  Restrorant its now only  project  not real  
->>>>>>> 61a69b91eb34054a23ff3b60e4b004b3645e3c18
+🛍️ Order Management – Place orders and track them
+
+👨‍🍳 Admin Panel – Manage menu items & orders
+
+🎨 Modern UI – Tailwind CSS + Framer Motion animations
+
+🌙 Dark/Light Mode toggle
+
+🔐 Authentication (Login & Register)
+
+🔔 Notifications for order updates
+
+⚡ Lazy loading & optimized performance
+
+🛠️ Tech Stack
+
+Frontend: React (Vite), Redux Toolkit, Tailwind CSS, Framer Motion
+
+Backend: Node.js, Express, Appwrite / MongoDB
+
+Deployment: Vercel (frontend) & Render (backend)
+
+📂 Project Structure
+frontend/
+│── public/            # Static assets (images, icons, etc.)
+│── src/
+│   ├── components/    # Navbar, Cart, MenuItem, etc.
+│   ├── pages/         # Pages (Home, Menu, Cart, Orders, Admin, etc.)
+│   ├── store/         # Redux slices (menuSlice, cartSlice, orderSlice, userSlice)
+│   ├── utils/         # API instance, helpers
+│   ├── App.jsx        # Main app file
+│   └── main.jsx       # Entry point
+│── .env               # Environment variables
+│── package.json
+│── tailwind.config.js
+│── vite.config.js
+└── README.md
+
+⚙️ Setup
+1️⃣ Clone the repository
+git clone <frontend-repo-url>
+cd frontend
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Configure Environment Variables
+
+Create a .env file in the root directory:
+
+VITE_BACKEND_URL=https://your-backend-url.com/api
+
+4️⃣ Run locally
+npm run dev
+
+5️⃣ Build for production
+npm run build
+
+🌍 Deployment
+
+Frontend (React): Deployed on Vercel
+
+Backend (Node/Express): Deployed on Render
+
+🤝 Contributing
+
+Fork the repo
+
+Create a feature branch (git checkout -b feature-name)
+
+Commit changes (git commit -m "Added feature")
+
+Push to branch (git push origin feature-name)
+
+Open a Pull Request
+
+📜 License
+
+This project is licensed under the MIT License.
