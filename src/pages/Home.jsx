@@ -9,10 +9,10 @@ const features = [
 ];
 
 const galleryImages = [
-  "/public/1 inside h.jpg",
-  "/public/2 inside h.jpg",
-  "/public/4 osen inside 4.jpg",
-  "/public/44 app.jpeg",
+  "/1 inside h.jpg",
+  "/2 inside h.jpg",
+  "/4 osen inside 4.jpg",
+  "/44 app.jpeg",
 ];
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
         className="w-full max-w-7xl mx-auto flex flex-col items-center gap-6"
       >
         <img 
-          src="/public/main  pic.jpg" 
+          src="/main  pic.jpg" 
           alt="Shakti Restaurant" 
           className="w-full rounded-3xl shadow-xl object-cover max-h-[600px]" 
         />
@@ -91,7 +91,7 @@ export default function Home() {
         className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-6 p-6 bg-orange-100 dark:bg-green-400 rounded-2xl shadow-md"
       >
         <img 
-          src="/public/me.png" 
+          src="/me.png" 
           alt="Owner" 
           className="w-48 h-48 object-cover rounded-full shadow-lg"
         />

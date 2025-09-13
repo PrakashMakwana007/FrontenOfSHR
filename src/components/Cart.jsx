@@ -42,7 +42,7 @@ function Cart() {
   const [paymentMethod, setPaymentMethod] = useState("cash");
 
   // Load pop sound
-  const popSound = new Audio("/public/pop-39222.mp3"); 
+  const popSound = new Audio("/pop-39222.mp3"); 
 
   const handleUpdateQuantity = useCallback(
     (_id, quantity) => {

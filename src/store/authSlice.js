@@ -11,9 +11,9 @@ export const registerUser = createAsyncThunk(
       const { data } = await axiosInstance.post("/users/register", userData);
      
 
-       localStorage.setItem("accessToken", data.data.accessToken);
-       localStorage.setItem("refreshToken", data.data.refreshToken);
-       
+      //  localStorage.setItem("accessToken", data.data.accessToken);
+      //  localStorage.setItem("refreshToken", data.data.refreshToken);
+        console.log(data);
        return data.data.user; 
        console.log(data);
     } catch (err) {
