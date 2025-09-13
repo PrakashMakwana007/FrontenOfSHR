@@ -35,7 +35,7 @@ function Footer() {
         <div className="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
           <div className="flex items-center gap-3">
             <img
-              src="/src/assets/ChatGPT Image Sep 7, 2025, 09_49_06 AM.png"
+              src="/ChatGPT Image Sep 7, 2025, 09_49_06 AM.png"
               alt="Shakti Logo"
               className="w-12 h-12 object-cover rounded-full shadow-lg"
             />

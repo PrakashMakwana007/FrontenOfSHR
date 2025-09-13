@@ -62,7 +62,7 @@ function Header() {
             <FiMenu />
           </button>
           <img
-            src="/src/assets/ChatGPT Image Sep 7, 2025, 09_49_06 AM.png"
+            src="/ChatGPT Image Sep 7, 2025, 09_49_06 AM.png"
             alt="Shakti Logo"
             className="w-8 h-8 object-cover rounded-full"
           />
