@@ -24,20 +24,18 @@ function Header() {
   const { user } = useSelector((state) => state.auth);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // ===== Updated Theme Colors =====
+  // ===== Theme Colors =====
   const headerClass =
     theme === "dark"
-      ? "bg-[#0D1164] text-white shadow-lg" 
-      : "bg-[#AED6CF] text-black shadow-lg"; 
+      ? "bg-[#0D1164] text-white shadow-lg"
+      : "bg-[#AED6CF] text-black shadow-lg";
 
   const sidebarClass =
-    theme === "dark"
-      ? "bg-[#0D1164] text-white"
-      : "bg-[#AED6CF] text-black";
+    theme === "dark" ? "bg-[#0D1164] text-white" : "bg-[#AED6CF] text-black";
 
   const menuHoverClass =
     theme === "dark"
-      ? "hover:bg-[#1A1F8C] rounded-lg px-2 py-1 transition" 
+      ? "hover:bg-[#1A1F8C] rounded-lg px-2 py-1 transition"
       : "hover:bg-[#96CFC2] rounded-lg px-2 py-1 transition";
 
   const handleLogout = () => {
@@ -51,6 +49,7 @@ function Header() {
 
   return (
     <div className={`font-sans ${theme === "dark" ? "dark" : ""}`}>
+      {/* ===== Header ===== */}
       <header
         className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-3 ${headerClass} transition-all duration-300`}
       >
@@ -71,7 +70,8 @@ function Header() {
           </h1>
         </div>
 
-        <div className="flex items-center gap-5">
+        {/* ===== Desktop Login/Logout (hidden on mobile) ===== */}
+        <div className="hidden md:flex items-center gap-5">
           {user ? (
             <button
               onClick={handleLogout}
@@ -90,6 +90,7 @@ function Header() {
         </div>
       </header>
 
+      {/* ===== Sidebar (Mobile) ===== */}
       <AnimatePresence>
         {sidebarOpen && (
           <motion.aside
@@ -119,9 +120,30 @@ function Header() {
               </Link>
             </nav>
 
+            {/* ===== Login/Logout inside Sidebar for Mobile ===== */}
+            <div className="mt-6 border-t pt-4">
+              {user ? (
+                <button
+                  onClick={handleLogout}
+                  className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg ${menuHoverClass}`}
+                >
+                  <FiLogOut /> Logout
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={() => setSidebarOpen(false)}
+                  className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg ${menuHoverClass}`}
+                >
+                  <FiLogIn /> Login
+                </Link>
+              )}
+            </div>
+
+            {/* ===== Theme Toggle ===== */}
             <button
               onClick={() => dispatch(toggleTheme())}
-              className="p-2 rounded-full bg-white/20 hover:bg-gray-200 hover:text-black transition"
+              className="p-2 rounded-full bg-white/20 hover:bg-gray-200 hover:text-black transition mt-auto"
             >
               {theme === "dark" ? <FiSun /> : <FiMoon />}
             </button>
