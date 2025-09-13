@@ -51,26 +51,29 @@ function Header() {
     <div className={`font-sans ${theme === "dark" ? "dark" : ""}`}>
       {/* ===== Header ===== */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-3 ${headerClass} transition-all duration-300`}
+        className={`fixed top-0 left-0 w-full h-20 z-50 flex items-center justify-between px-4 sm:px-6 ${headerClass} transition-all duration-300`}
       >
+        {/* Left: Logo + Menu Button */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-2xl focus:outline-none"
+            className="text-2xl focus:outline-none hover:scale-110 transition-transform"
           >
             <FiMenu />
           </button>
           <img
             src="/ChatGPT Image Sep 7, 2025, 09_49_06 AM.png"
             alt="Shakti Logo"
-            className="w-8 h-8 object-cover rounded-full"
+            className="w-12 h-12 object-cover rounded-full"
           />
-          <h1 className="absolute left-1/2 transform -translate-x-1/2 text-xl md:text-2xl font-bold tracking-wide">
-            Shakti Restaurant
-          </h1>
         </div>
 
-        {/* ===== Desktop Login/Logout (hidden on mobile) ===== */}
+        {/* Center: Restaurant Name */}
+        <h1 className="text-xl md:text-2xl font-bold tracking-wide text-center flex-1">
+          Shakti Restaurant
+        </h1>
+
+        {/* Right: Desktop Login/Logout */}
         <div className="hidden md:flex items-center gap-5">
           {user ? (
             <button
@@ -93,65 +96,93 @@ function Header() {
       {/* ===== Sidebar (Mobile) ===== */}
       <AnimatePresence>
         {sidebarOpen && (
-          <motion.aside
-            initial={{ x: -250 }}
-            animate={{ x: 0 }}
-            exit={{ x: -250 }}
-            transition={{ type: "spring", stiffness: 80 }}
-            className={`fixed top-14 left-0 h-[calc(100%-4rem)] w-60 z-50 p-6 flex flex-col gap-6 shadow-2xl ${sidebarClass} transition-all`}
-          >
-            <button
+          <>
+            {/* Dim Background */}
+            <motion.div
+              className="fixed inset-0 bg-black/50 z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setSidebarOpen(false)}
-              className="self-end text-2xl mb-4 focus:outline-none hover:text-red-500"
+            />
+
+            {/* Sidebar */}
+            <motion.aside
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 80 }}
+              className={`fixed top-20 left-0 h-[calc(100%-5rem)] w-64 z-50 p-6 flex flex-col shadow-2xl ${sidebarClass} transition-all`}
             >
-              <FiX />
-            </button>
+              {/* Close Button */}
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="self-end text-2xl mb-6 focus:outline-none hover:text-red-500"
+              >
+                <FiX />
+              </button>
 
-            <h2 className="text-lg font-bold mb-4">Menu</h2>
-            <nav className="flex flex-col gap-2">
-              <Link to="/" className={`flex items-center gap-2 ${menuHoverClass}`}>
-                <FiHome /> HOME
-              </Link>
-              <Link to="/cart" className={`flex items-center gap-2 ${menuHoverClass}`}>
-                <FiList /> MENU
-              </Link>
-              <Link to="/orders" className={`flex items-center gap-2 ${menuHoverClass}`}>
-                <FiShoppingCart /> ORDERS
-              </Link>
-            </nav>
-
-            {/* ===== Login/Logout inside Sidebar for Mobile ===== */}
-            <div className="mt-6 border-t pt-4">
-              {user ? (
-                <button
-                  onClick={handleLogout}
-                  className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg ${menuHoverClass}`}
-                >
-                  <FiLogOut /> Logout
-                </button>
-              ) : (
+              <h2 className="text-lg font-bold mb-4">Menu</h2>
+              <nav className="flex flex-col gap-3">
                 <Link
-                  to="/login"
+                  to="/"
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg ${menuHoverClass}`}
+                  className={`flex items-center gap-2 ${menuHoverClass}`}
                 >
-                  <FiLogIn /> Login
+                  <FiHome /> HOME
                 </Link>
-              )}
-            </div>
+                <Link
+                  to="/cart"
+                  onClick={() => setSidebarOpen(false)}
+                  className={`flex items-center gap-2 ${menuHoverClass}`}
+                >
+                  <FiList /> MENU
+                </Link>
+                <Link
+                  to="/orders"
+                  onClick={() => setSidebarOpen(false)}
+                  className={`flex items-center gap-2 ${menuHoverClass}`}
+                >
+                  <FiShoppingCart /> ORDERS
+                </Link>
+              </nav>
 
-            {/* ===== Theme Toggle ===== */}
-            <button
-              onClick={() => dispatch(toggleTheme())}
-              className="p-2 rounded-full bg-white/20 hover:bg-gray-200 hover:text-black transition mt-auto"
-            >
-              {theme === "dark" ? <FiSun /> : <FiMoon />}
-            </button>
-          </motion.aside>
+              {/* Login/Logout inside Sidebar (Mobile) */}
+              <div className="mt-6 border-t pt-4">
+                {user ? (
+                  <button
+                    onClick={handleLogout}
+                    className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg ${menuHoverClass}`}
+                  >
+                    <FiLogOut /> Logout
+                  </button>
+                ) : (
+                  <Link
+                    to="/login"
+                    onClick={() => setSidebarOpen(false)}
+                    className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg ${menuHoverClass}`}
+                  >
+                    <FiLogIn /> Login
+                  </Link>
+                )}
+              </div>
+
+              {/* Theme Toggle (unique style) */}
+              <div className="mt-auto flex justify-center">
+                <button
+                  onClick={() => dispatch(toggleTheme())}
+                  className="p-3 rounded-full bg-gradient-to-r from-yellow-400 to-green-700 text-white shadow-md hover:scale-110 transition-transform duration-300"
+                >
+                  {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+                </button>
+              </div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
 
-      <div className="pt-16" />
+      {/* Spacer for Header */}
+      <div className="pt-20" />
     </div>
   );
 }
