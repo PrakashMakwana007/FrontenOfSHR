@@ -6,27 +6,27 @@ import { createOrder } from "../store/orderSlice";
 // 🛒 Cart Item (memoized)
 const CartItem = memo(({ item, onUpdate, onRemove, theme }) => (
   <div
-    className={`flex justify-between items-center border p-4 rounded-lg shadow-sm transition ${
-      theme === "dark" ? "bg-[#0D1164] text-white" : "bg-[#AED6CF] text-black"
+    className={`flex justify-between items-center p-4 rounded-xl shadow-md transition-transform transform hover:scale-105 ${
+      theme === "dark" ? "bg-[#1B1464] text-white" : "bg-[#D6F5E1] text-black"
     }`}
   >
     <div>
-      <p className="font-semibold">{item.name}</p>
+      <p className="font-semibold text-lg">{item.name}</p>
       <p className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
         ₹{item.price} x {item.quantity}
       </p>
     </div>
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3">
       <input
         type="number"
         min="1"
         value={item.quantity}
         onChange={(e) => onUpdate(item._id, parseInt(e.target.value))}
-        className="w-16 text-center border rounded p-1"
+        className="w-16 text-center border rounded p-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
       />
       <button
         onClick={() => onRemove(item._id)}
-        className="text-red-500 hover:text-red-700 transition"
+        className="text-red-500 hover:text-red-700 font-semibold transition"
       >
         Remove
       </button>
@@ -52,9 +52,7 @@ function Cart() {
   );
 
   const handleRemoveItem = useCallback(
-    (_id) => {
-      dispatch(removeFromCart(_id));
-    },
+    (_id) => dispatch(removeFromCart(_id)),
     [dispatch]
   );
 
@@ -69,9 +67,7 @@ function Cart() {
       address,
     };
 
-    // Play pop sound
-    popSound.play().catch((err) => console.log(err));
-
+    popSound.play().catch(() => {});
     dispatch(createOrder(orderData));
     dispatch(clearCart());
     alert("Order placed successfully!");
@@ -80,17 +76,19 @@ function Cart() {
   return (
     <div
       className={`p-6 max-w-3xl mx-auto transition-colors ${
-        theme === "dark" ? "bg-[#0D1164] text-white" : "bg-[#AED6CF] text-black"
+        theme === "dark" ? "bg-[#0D1164] text-white" : "bg-[#E8F8F5] text-black"
       }`}
     >
-      <h1 className="text-3xl font-bold mb-6 text-center">Your Cart</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center tracking-wide">
+        Your Cart
+      </h1>
 
       {items.length === 0 ? (
-        <p className={theme === "dark" ? "text-gray-300 text-center" : "text-gray-700 text-center"}>
+        <p className={`text-center text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
           Your cart is empty.
         </p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {items.map((item) => (
             <CartItem
               key={item._id}
@@ -103,8 +101,8 @@ function Cart() {
 
           {/* Address & Payment */}
           <div
-            className={`mt-6 p-4 rounded-lg shadow-md transition ${
-              theme === "dark" ? "bg-[#0D1164] text-white" : "bg-[#AED6CF] text-black"
+            className={`p-6 rounded-xl shadow-lg transition-transform transform hover:scale-[1.02] ${
+              theme === "dark" ? "bg-[#1B1464] text-white" : "bg-[#D6F5E1] text-black"
             }`}
           >
             <input
@@ -112,16 +110,20 @@ function Cart() {
               placeholder="Enter delivery address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className={`w-full border p-2 rounded mb-3 ${
-                theme === "dark" ? "bg-[#0D1164] text-white border-gray-700" : "bg-[#AED6CF] text-black border-gray-300"
+              className={`w-full border p-3 rounded mb-4 focus:outline-none focus:ring-2 ${
+                theme === "dark"
+                  ? "bg-[#1B1464] text-white border-gray-600 focus:ring-purple-500"
+                  : "bg-[#D6F5E1] text-black border-gray-300 focus:ring-green-400"
               }`}
             />
 
             <select
               value={paymentMethod}
               onChange={(e) => setPaymentMethod(e.target.value)}
-              className={`w-full border p-2 rounded mb-4 ${
-                theme === "dark" ? "bg-[#0D1164] text-white border-gray-700" : "bg-[#AED6CF] text-black border-gray-300"
+              className={`w-full border p-3 rounded mb-6 focus:outline-none focus:ring-2 ${
+                theme === "dark"
+                  ? "bg-[#1B1464] text-white border-gray-600 focus:ring-purple-500"
+                  : "bg-[#D6F5E1] text-black border-gray-300 focus:ring-green-400"
               }`}
             >
               <option value="cash">Cash on Delivery</option>
@@ -130,8 +132,10 @@ function Cart() {
 
             <button
               onClick={handlePlaceOrder}
-              className={`w-full py-3 rounded-lg font-semibold shadow-lg transition ${
-                theme === "dark" ? "bg-[#AED6CF] text-black hover:opacity-90" : "bg-[#0D1164] text-white hover:opacity-90"
+              className={`w-full py-3 rounded-xl font-bold text-lg shadow-xl transition-transform transform hover:scale-105 ${
+                theme === "dark"
+                  ? "bg-gradient-to-r from-purple-600 to-blue-500 text-white"
+                  : "bg-gradient-to-r from-green-400 to-teal-500 text-white"
               }`}
             >
               Place Order

@@ -36,8 +36,7 @@ function AdminMenu() {
     const { name, value, type, checked, files } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]:
-        type === "checkbox" ? checked : type === "file" ? files[0] : value,
+      [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value,
     }));
   }, []);
 
@@ -59,11 +58,8 @@ function AdminMenu() {
       const data = new FormData();
       Object.keys(formData).forEach((key) => {
         if (key === "currentImage") return;
-        if (key === "available") {
-          data.append(key, formData.available ? "true" : "false");
-        } else {
-          data.append(key, formData[key]);
-        }
+        if (key === "available") data.append(key, formData.available ? "true" : "false");
+        else data.append(key, formData[key]);
       });
       dispatch(createMenuItem(data));
       resetForm();
@@ -78,11 +74,8 @@ function AdminMenu() {
       Object.keys(formData).forEach((key) => {
         if (key === "currentImage") return;
         if (key === "image" && !formData.image) return;
-        if (key === "available") {
-          data.append(key, formData.available ? "true" : "false");
-        } else {
-          data.append(key, formData[key]);
-        }
+        if (key === "available") data.append(key, formData.available ? "true" : "false");
+        else data.append(key, formData[key]);
       });
       dispatch(updateMenuItem({ id: editingItem._id, updateData: data }));
       resetForm();
@@ -109,32 +102,32 @@ function AdminMenu() {
     [API_BASE]
   );
 
-  // Single-color theme
+  // Theme-based colors
   const gradients = useMemo(
     () =>
       theme === "dark"
         ? {
             bg: "bg-[#0D1164] text-white",
-            card: "bg-[#0D1164] text-white",
+            card: "bg-[#13195f] text-white",
             btnAdd: "bg-[#AED6CF] text-black",
             btnUpdate: "bg-[#AED6CF] text-black",
             btnDelete: "bg-red-600 text-white",
+            input: "bg-[#0D1164] border-gray-700 text-white",
           }
         : {
             bg: "bg-[#AED6CF] text-black",
-            card: "bg-[#AED6CF] text-black",
+            card: "bg-[#D4F1F4] text-black",
             btnAdd: "bg-[#0D1164] text-white",
             btnUpdate: "bg-[#0D1164] text-white",
             btnDelete: "bg-red-600 text-white",
+            input: "bg-white border-gray-300 text-black",
           },
     [theme]
   );
 
   return (
     <div className={`p-6 min-h-screen transition-colors ${gradients.bg}`}>
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        🍴 Admin Menu Management
-      </h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">🍴 Admin Menu Management</h1>
 
       {/* Form */}
       <form
@@ -146,12 +139,13 @@ function AdminMenu() {
           {editingItem ? "Update Menu Item" : "Add New Menu Item"}
         </h2>
 
-        {editingItem && formData.currentImage && !formData.image && (
-          <div className="mb-3">
-            <p className="text-sm mb-1">Current Image:</p>
+        {/* Image Preview */}
+        {(formData.currentImage || formData.image) && (
+          <div className="mb-3 flex flex-col items-start">
+            <p className="text-sm mb-1">Preview Image:</p>
             <img
-              src={getImageUrl(formData.currentImage)}
-              alt={formData.name}
+              src={formData.image ? URL.createObjectURL(formData.image) : getImageUrl(formData.currentImage)}
+              alt="preview"
               className="w-32 h-32 object-cover rounded-xl shadow-md"
             />
           </div>
@@ -164,7 +158,7 @@ function AdminMenu() {
             placeholder="Food Name"
             value={formData.name}
             onChange={handleChange}
-            className="border p-2 rounded-lg w-full"
+            className={`border p-2 rounded-lg w-full ${gradients.input}`}
             required
           />
           <input
@@ -173,7 +167,7 @@ function AdminMenu() {
             placeholder="Price"
             value={formData.price}
             onChange={handleChange}
-            className="border p-2 rounded-lg w-full"
+            className={`border p-2 rounded-lg w-full ${gradients.input}`}
             required
           />
           <input
@@ -182,13 +176,13 @@ function AdminMenu() {
             placeholder="Description"
             value={formData.description}
             onChange={handleChange}
-            className="border p-2 rounded-lg w-full"
+            className={`border p-2 rounded-lg w-full ${gradients.input}`}
           />
           <select
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="border p-2 rounded-lg w-full"
+            className={`border p-2 rounded-lg w-full ${gradients.input}`}
           >
             <option>Gujarati</option>
             <option>Punjabi</option>
@@ -197,30 +191,29 @@ function AdminMenu() {
             <option>Snacks</option>
             <option>Other</option>
           </select>
-          <label className="flex items-center gap-2">
+          <label className="inline-flex items-center gap-2 mt-2">
             <input
               type="checkbox"
               name="available"
               checked={formData.available}
               onChange={handleChange}
+              className="form-checkbox h-5 w-5 text-green-500 rounded"
             />
-            Available
+            <span>{formData.available ? "Available" : "Not Available"}</span>
           </label>
           <input
             type="file"
             name="image"
             accept="image/*"
             onChange={handleChange}
-            className="border p-2 rounded-lg w-full"
+            className={`border p-2 rounded-lg w-full ${gradients.input}`}
           />
         </div>
 
         <div className="flex gap-4 mt-6">
           <button
             type="submit"
-            className={`${
-              editingItem ? gradients.btnUpdate : gradients.btnAdd
-            } px-6 py-2 rounded-lg font-semibold shadow-md hover:scale-105 transition`}
+            className={`${editingItem ? gradients.btnUpdate : gradients.btnAdd} px-6 py-2 rounded-lg font-semibold shadow-md hover:scale-105 transition`}
           >
             {editingItem ? "Update Item" : "Add Item"}
           </button>
@@ -239,42 +232,40 @@ function AdminMenu() {
         </div>
       </form>
 
-      {/* Items */}
+      {/* Items Grid */}
       {loading ? (
-        <p>Loading menu...</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className={`h-64 rounded-2xl animate-pulse ${gradients.card}`}></div>
+          ))}
+        </div>
       ) : error ? (
-        <p className="text-red-500">{error}</p>
+        <p className="text-red-500 text-center">{error}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {items.map((item) => (
             <motion.div
               key={item._id}
-              whileHover={{ scale: 1.05 }}
-              className={`shadow-lg rounded-2xl p-4 transition ${gradients.card}`}
+              whileHover={{ scale: 1.03, boxShadow: "0px 20px 30px rgba(0,0,0,0.2)" }}
+              className={`rounded-2xl p-4 transition ${gradients.card}`}
             >
               {item.image ? (
                 <img
                   src={getImageUrl(item.image)}
                   alt={item.name}
-                  className="w-full h-40 object-cover rounded-xl mb-3 shadow"
+                  className="w-full h-40 object-cover rounded-xl mb-3 shadow-sm"
                 />
               ) : (
-                <div className="w-full h-40 bg-gray-200 rounded-xl mb-3 flex items-center justify-center text-gray-500">
+                <div className="w-full h-40 bg-gray-200 dark:bg-gray-700 rounded-xl mb-3 flex items-center justify-center text-gray-500">
                   No Image
                 </div>
               )}
 
               <h2 className="text-xl font-semibold">{item.name}</h2>
-              <p className="text-sm opacity-80 mb-1">
-                {item.description || "No description"}
-              </p>
+              <p className="text-sm opacity-80 mb-1">{item.description || "No description"}</p>
               <p className="font-bold text-lg">₹{item.price}</p>
               <p className="text-sm">{item.category}</p>
-              <p
-                className={`text-sm mt-1 ${
-                  item.available ? "text-green-600" : "text-red-500"
-                }`}
-              >
+              <p className={`text-sm mt-1 ${item.available ? "text-green-600" : "text-red-500"}`}>
                 {item.available ? "Available" : "Not Available"}
               </p>
 
