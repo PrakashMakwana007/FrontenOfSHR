@@ -11,6 +11,7 @@ const axiosInstance = axios.create({
   withCredentials: true, 
 })
 
+
 // Add JWT token automatically if available
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token') // store token on login

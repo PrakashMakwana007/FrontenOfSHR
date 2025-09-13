@@ -9,13 +9,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post("/users/register", userData);
-     
-
-       localStorage.setItem("accessToken", data.data.accessToken);
-       localStorage.setItem("refreshToken", data.data.refreshToken);
-        console.log(data);
-       return data.data.user; 
-       console.log(data);
+      return data.data.user; // backend returns user
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
     }
@@ -27,10 +21,7 @@ export const loginUser = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post("/users/login", credentials);
-       localStorage.setItem("accessToken", data.data.accessToken);
-      localStorage.setItem("refreshToken", data.data.refreshToken);
-      return data.data.user;
-      console.log(data);
+      return data.data.user; // user info from backend
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
     }
@@ -41,7 +32,7 @@ export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   async (_, { rejectWithValue }) => {
     try {
-      await axiosInstance.post("/users/logout");
+      await axiosInstance.post("/users/logout"); // cookies sent automatically
       return true;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -53,7 +44,7 @@ export const getCurrentUser = createAsyncThunk(
   "auth/getCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.get("/users/me");
+      const { data } = await axiosInstance.get("/users/me"); // cookies sent automatically
       return data.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
