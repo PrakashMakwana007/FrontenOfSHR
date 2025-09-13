@@ -27,8 +27,8 @@ function Header() {
   // ===== Updated Theme Colors =====
   const headerClass =
     theme === "dark"
-      ? "bg-[#0D1164] text-white shadow-lg" // Dark mode: deep navy
-      : "bg-[#AED6CF] text-black shadow-lg"; // Light mode: soft green
+      ? "bg-[#0D1164] text-white shadow-lg" 
+      : "bg-[#AED6CF] text-black shadow-lg"; 
 
   const sidebarClass =
     theme === "dark"
@@ -37,7 +37,7 @@ function Header() {
 
   const menuHoverClass =
     theme === "dark"
-      ? "hover:bg-[#1A1F8C] rounded-lg px-2 py-1 transition" // Slightly lighter navy on hover
+      ? "hover:bg-[#1A1F8C] rounded-lg px-2 py-1 transition" 
       : "hover:bg-[#96CFC2] rounded-lg px-2 py-1 transition";
 
   const handleLogout = () => {
